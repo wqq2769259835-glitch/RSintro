@@ -374,6 +374,7 @@
   <a href="#ch3">Ch3·技术系统</a>
   <a href="#ch4">Ch4·航空摄影</a>
   <a href="#ch5">Ch5·图像处理</a>
+  <a href="#ch6">Ch6·波段运算</a>
   <a href="#ch7">Ch7·热红外</a>
   <a href="#ch8">Ch8·微波</a>
   <a href="#ch9">Ch9·激光雷达</a>
@@ -723,6 +724,107 @@
     <tr><td>典型方法</td><td>K-means、ISODATA</td><td>最大似然法、SVM、神经网络</td></tr>
     <tr><td>适用场景</td><td>陌生地区、无野外数据、探索性研究</td><td>有训练样本、精度要求高的应用</td></tr>
   </table>
+</section>
+
+<!-- ===================== CH6 ===================== -->
+<section class="chapter" id="ch6">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 06</span>
+    <div>
+      <div class="chapter-title">波段运算与专题解译</div>
+      <div class="chapter-sub">波段运算原理 / NDVI / NDSI / NDWI / 旱情监测指数 / 变化检测可视化</div>
+    </div>
+  </div>
+
+  <div class="section-label">核心名词解释</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">➕</span>波段运算（Band Math）</div>
+      <div class="term-body">对遥感影像的<strong>每个像元对应的像素值</strong>进行数学运算（加、减、乘、除、逻辑运算等），生成新的影像结果。本质：逐像元的数值计算。优点：运算灵活、可自定义算法、能快速突出特定地物信息。常用软件：ENVI Band Math、GDAL、Python（NumPy）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌿</span>NDVI（归一化植被指数）</div>
+      <div class="term-body">Normalized Difference Vegetation Index。利用植物<strong>近红外高反射、红光低反射</strong>的光谱特征提取植被信息。公式：<em>NDVI = (NIR − R) / (NIR + R)</em>。值域：−1～+1。典型值：茂密植被 0.6–0.9；稀疏植被 0.2–0.5；裸地/城市 0–0.2；水体 &lt;0（负值）；云/雪 接近0。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">❄️</span>NDSI（归一化积雪指数）</div>
+      <div class="term-body">Normalized Difference Snow Index。利用积雪在<strong>绿光高反射、短波红外低反射</strong>的特征提取积雪。公式：<em>NDSI = (G − SWIR) / (G + SWIR)</em>。对Landsat 7：NDSI = (B2 − B5) / (B2 + B5)。积雪NDSI通常&gt;0.4，可与云（云在SWIR同样反射率高，NDSI接近0）有效区分。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">💧</span>NDWI（归一化水体指数）</div>
+      <div class="term-body">Normalized Difference Water Index（McFeeters，1996）。利用水体在<strong>绿光较高反射、近红外低反射</strong>的特征提取水体。公式：<em>NDWI = (G − NIR) / (G + NIR)</em>。对Landsat 7：NDWI = (B2 − B4) / (B2 + B4)。水体NDWI通常&gt;0.3；植被&lt;0；城市/裸地接近0或为负。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌵</span>旱情监测指数（NDII/干旱指数）</div>
+      <div class="term-body">利用短波红外（SWIR）对植被<strong>含水量极为敏感</strong>的特性设计。NDII（归一化差值红外指数）= (NIR − SWIR) / (NIR + SWIR)（B7指数用Landsat B7）。植被干旱时含水量下降，SWIR反射率上升，NDII降低。通过计算<em>距平（Anomaly）</em>反映某时期与多年平均的偏差，用于时空干旱监测。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📊</span>归一化差值指数（NDI）通用原理</div>
+      <div class="term-body">各类遥感指数的通用设计范式：<em>NDI = (Band_A − Band_B) / (Band_A + Band_B)</em>。归一化消除了辐射强度的绝对差异，使结果值域固定在−1～+1，便于跨传感器、跨时间比较。选取波段的原则：目标地物在Band_A中反射率<strong>远高于</strong>Band_B，或相反。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📉</span>阈值提取（Threshold）</div>
+      <div class="term-body">对计算出的遥感指数影像，设定<strong>判断边界值</strong>，将特定范围内的像元划分为目标地物。如NDVI&gt;0.5提取茂密植被；NDWI&gt;0.3提取水体；NDSI&gt;0.4提取积雪。优点：简单高效，无需训练样本。缺点：阈值选取依赖经验，不同区域/季节需调整。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔀</span>桑基图（Sankey Diagram）</div>
+      <div class="term-body">用于可视化<strong>不同类别之间流向和数量关系</strong>的图表，流量宽度与数量成正比。在变化检测中，用于展示不同地物类型之间的转变关系（如多少面积的农田变为建设用地）。是变化检测结果最直观的定量可视化工具之一。</div>
+    </div>
+  </div>
+
+  <div class="section-label">常用遥感指数对比（重点）</div>
+  <table class="cmp-table">
+    <tr><th>指数</th><th>公式（Landsat 7波段）</th><th>目标地物</th><th>典型阈值</th><th>原理依据</th></tr>
+    <tr><td>NDVI</td><td>(B4 − B3) / (B4 + B3)</td><td>植被</td><td>&gt;0.2（植被）；&gt;0.5（茂密）</td><td>植被近红外强反射、红光叶绿素强吸收</td></tr>
+    <tr><td>NDSI</td><td>(B2 − B5) / (B2 + B5)</td><td>积雪</td><td>&gt;0.4（雪覆盖）</td><td>雪在绿光高反射，在SWIR极低反射</td></tr>
+    <tr><td>NDWI</td><td>(B2 − B4) / (B2 + B4)</td><td>水体</td><td>&gt;0.3（水体）</td><td>水体绿光有一定反射，近红外几乎全吸收</td></tr>
+    <tr><td>NDII/NDII-B7</td><td>(B4 − B7) / (B4 + B7)</td><td>植被含水量/旱情</td><td>距平&lt;0为偏干旱</td><td>SWIR对叶片液态水含量极敏感</td></tr>
+    <tr><td>MNDWI（改进NDWI）</td><td>(B2 − B5) / (B2 + B5)</td><td>水体（城区）</td><td>&gt;0（水体）</td><td>用SWIR代替NIR，更好抑制城市背景</td></tr>
+  </table>
+
+  <div class="section-label">各地物类型NDVI/NDWI典型值域（论述重点）</div>
+  <div class="callout callout-green">
+    <strong>NDVI典型取值范围：</strong><br>
+    茂密植被（森林）：0.6 ~ 0.9 ｜ 稀疏植被（草地）：0.2 ~ 0.5 ｜ 裸地/沙漠：0.0 ~ 0.2 ｜ 城市不透水面：0.0 ~ 0.15 ｜ 水体：&lt;0（负值，可达−0.3）｜ 积雪/云：接近0
+  </div>
+  <div class="callout callout-blue">
+    <strong>NDWI典型取值范围：</strong><br>
+    水体：0.3 ~ 0.9 ｜ 湿地/湿润土壤：0.0 ~ 0.3 ｜ 裸地：−0.3 ~ 0.0 ｜ 植被：−0.5 ~ −0.1 ｜ 城市建筑：−0.4 ~ 0.0
+  </div>
+
+  <div class="section-label">简答题精要</div>
+  <div class="qa-list">
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>为什么需要采用波段运算？波段运算相比直接目视解译有哪些优点？</div>
+      <div class="qa-a">①<strong>定量化</strong>：将地物的光谱差异转化为数值，消除主观判读误差；②<strong>自动化</strong>：可批量处理大量影像，效率远高于人工解译；③<strong>突出特定信息</strong>：通过设计波段组合放大目标地物与背景的差异（如NDVI使植被信息凸显）；④<strong>跨时间/跨传感器可比性</strong>：归一化处理消除辐射强度绝对差异，便于时序分析；⑤<strong>阈值可调</strong>：可根据研究区和季节灵活调整提取阈值。</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>NDVI、NDSI、NDWI三种指数的设计思路有何共同之处？各自利用了地物哪种光谱特征？</div>
+      <div class="qa-a">
+        <strong>共同设计思路</strong>：均采用<em>归一化差值</em>公式 (A−B)/(A+B)，利用目标地物在两个波段反射率差异显著的特性，将差异放大并归一化到−1～+1，消除辐射误差。<br><br>
+        <strong>各自光谱依据</strong>：<em>NDVI</em>利用植被近红外（叶细胞强反射）vs 红光（叶绿素强吸收）的巨大差异；<em>NDSI</em>利用积雪绿光（高反射）vs 短波红外（强吸收，冰晶结构对SWIR完全吸收）的对比；<em>NDWI</em>利用水体绿光（有一定反射）vs 近红外（液态水强烈吸收，几乎为零）的对比。
+      </div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>如何利用遥感手段监测干旱？</div>
+      <div class="qa-a">①<strong>植被指数法</strong>：NDVI距平（当前值−多年平均值），NDVI持续偏低表明植被受旱胁迫；②<strong>植被含水量指数（NDII/NDWI）</strong>：短波红外对叶片液态水敏感，干旱时含水量下降，指数降低；③<strong>地表温度（LST）法</strong>：干旱导致蒸散减弱，地表温度升高（热红外遥感），结合植被指数构建温度-植被指数特征空间（VHI）；④<strong>时间序列异常分析</strong>：计算当前期距平值与多年同期均值的偏差，提取干旱时空分布和演变过程（如NDII_B7距平图）。</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>如何高效可视化表达变化检测结果？</div>
+      <div class="qa-a">①<strong>变化图像叠加</strong>：用不同颜色标注增加/减少/不变区域（如水体变化：深蓝=不变，红=减少，青=增加）；②<strong>变化混淆矩阵</strong>：类似精度评估矩阵，定量统计各类别之间的转变方向和面积；③<strong>桑基图（Sankey Diagram）</strong>：流量宽度代表转变面积，直观展示地物类别间的转变关系；④<strong>六边形/区划分类图</strong>：空间聚合展示变化的地理分布规律；⑤<strong>时序折线图</strong>：展示特定区域指数（如NDVI）随时间的变化趋势。</div>
+    </div>
+  </div>
+
+  <div class="section-label">论述题：如何针对具体问题选择合适的波段指数？</div>
+  <div class="callout callout-gold">
+    <strong>选择原则</strong>：根据目标地物的<em>光谱特征</em>（哪些波段对该地物敏感）和<em>干扰因素</em>（如何抑制背景）来选择波段组合。<br>
+    → 监测<strong>植被覆盖/长势</strong>：NDVI（普适）；红边指数（精细区分植被类型）<br>
+    → 提取<strong>水体范围</strong>：NDWI（自然水体）；MNDWI（城区内水体，抑制建筑干扰）<br>
+    → 提取<strong>积雪</strong>：NDSI（区分雪与云，云NDSI接近0而雪&gt;0.4）<br>
+    → 监测<strong>旱情</strong>：NDII（植被含水量）；结合地表温度（LST）构建综合干旱指数<br>
+    → 监测<strong>城市扩张/不透水面</strong>：NDBI（归一化建筑指数）= (SWIR−NIR)/(SWIR+NIR)<br>
+    → 监测<strong>火烧迹地</strong>：NBR（归一化燃烧率）= (NIR−SWIR)/(NIR+SWIR)，燃烧后NBR显著降低
+  </div>
 </section>
 
 <!-- ===================== CH7 ===================== -->
