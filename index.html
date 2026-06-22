@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>遥感概论 · 期末复习资料</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --ink:      #1a1a2e;
+    --ink-soft: #3a3a5c;
+    --ink-mute: #6b6b8a;
+    --paper:    #f7f6f2;
+    --paper-2:  #ededea;
+    --accent:   #2563a8;
+    --accent-light: #dce8f7;
+    --gold:     #b8860b;
+    --gold-light: #fdf6e3;
+    --green:    #1a6b3c;
+    --green-light: #e8f5ee;
+    --red:      #b83232;
+    --red-light: #fdecea;
+    --border:   #d0cfc7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* NAV */
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    height: 48px;
+  }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .site-nav a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 13px;
+    white-space: nowrap;
+    padding: 0 0.9rem;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s, background 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .site-nav a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .site-nav .nav-brand {
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding-right: 1.2rem;
+    border-right: 1px solid rgba(255,255,255,0.18);
+    margin-right: 0.4rem;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--ink);
+    color: #fff;
+    padding: 4rem 2rem 3.5rem;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.7rem;
+    line-height: 1.25;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    max-width: 620px;
+    margin: 0 auto 2rem;
+  }
+  .hero-tips {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .hero-tip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 0.6rem 1.1rem;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+  .hero-tip strong { color: #fff; }
+
+  /* MAIN LAYOUT */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* CHAPTER SECTIONS */
+  .chapter {
+    padding: 3.5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .chapter:last-child { border-bottom: none; }
+
+  .chapter-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .chapter-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    background: var(--accent-light);
+    border-radius: 4px;
+    padding: 0.25rem 0.6rem;
+    white-space: nowrap;
+    margin-top: 0.2rem;
+  }
+  .chapter-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .chapter-sub {
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin-top: 0.3rem;
+  }
+
+  /* TERM CARDS */
+  .term-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .term-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.3rem;
+    transition: box-shadow 0.15s;
+  }
+  .term-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .term-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .term-name .icon { font-size: 16px; }
+  .term-body { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .term-body strong { color: var(--ink); }
+  .term-body em { color: var(--red); font-style: normal; font-weight: 600; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 2rem 0 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Q&A BLOCKS */
+  .qa-list { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
+  .qa-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .qa-q {
+    background: var(--gold-light);
+    border-bottom: 1px solid #e8dfc0;
+    padding: 0.8rem 1.2rem;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--gold);
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
+  .qa-q .badge {
+    background: var(--gold);
+    color: #fff;
+    font-size: 10px;
+    border-radius: 3px;
+    padding: 1px 5px;
+    white-space: nowrap;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .qa-a {
+    padding: 1rem 1.2rem;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+  }
+  .qa-a strong { color: var(--ink); }
+  .qa-a em { color: var(--accent); font-style: normal; }
+
+  /* COMPARISON TABLE */
+  .cmp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .cmp-table th {
+    background: var(--ink);
+    color: #fff;
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .cmp-table td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--paper-2);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .cmp-table tr:last-child td { border-bottom: none; }
+  .cmp-table tr:nth-child(even) td { background: #fafaf8; }
+  .cmp-table td:first-child { font-weight: 600; color: var(--ink); }
+
+  /* HIGHLIGHT BOX */
+  .callout {
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 13.5px;
+    line-height: 1.75;
+    margin-bottom: 1.2rem;
+  }
+  .callout-blue { background: var(--accent-light); border-left: 3px solid var(--accent); color: var(--ink-soft); }
+  .callout-green { background: var(--green-light); border-left: 3px solid var(--green); color: var(--ink-soft); }
+  .callout-red { background: var(--red-light); border-left: 3px solid var(--red); color: var(--ink-soft); }
+  .callout-gold { background: var(--gold-light); border-left: 3px solid var(--gold); color: var(--ink-soft); }
+  .callout strong { color: var(--ink); }
+
+  /* KEY POINTS LIST */
+  .key-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .key-list li {
+    display: flex;
+    gap: 0.7rem;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+  }
+  .key-list li::before {
+    content: '›';
+    color: var(--accent);
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+    line-height: 1.5;
+  }
+  .key-list li strong { color: var(--ink); }
+
+  /* SPECTRUM BAND TABLE */
+  .band-row { display: flex; gap: 0; margin-bottom: 1rem; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .band-cell { flex: 1; padding: 0.7rem 0.5rem; text-align: center; font-size: 12px; }
+  .band-label { font-weight: 700; font-size: 11px; margin-bottom: 2px; }
+  .band-uv { background: #7b2d8b; color: #fff; }
+  .band-vis { background: linear-gradient(90deg, #4040c8, #22c022, #e08800); color: #fff; }
+  .band-nir { background: #8B0000; color: #fff; }
+  .band-mir { background: #c04000; color: #fff; }
+  .band-tir { background: #603000; color: #fff; }
+  .band-mw { background: #2b4080; color: #fff; }
+
+  /* FOOTER */
+  .site-footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 12px;
+    margin-top: 3rem;
+  }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    background: var(--paper-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 7px;
+    color: var(--ink-mute);
+    margin: 2px;
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .term-grid { grid-template-columns: 1fr; }
+    .hero { padding: 2.5rem 1rem 2rem; }
+    .container { padding: 0 1rem; }
+    .band-row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <span class="nav-brand">遥感概论</span>
+  <a href="#ch1">Ch1·绪论</a>
+  <a href="#ch2">Ch2·物理基础</a>
+  <a href="#ch3">Ch3·技术系统</a>
+  <a href="#ch4">Ch4·航空摄影</a>
+  <a href="#ch5">Ch5·图像处理</a>
+  <a href="#ch7">Ch7·热红外</a>
+  <a href="#ch8">Ch8·微波</a>
+  <a href="#ch9">Ch9·激光雷达</a>
+  <a href="#ch10">Ch10·高光谱</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">遥感概论 · 期末复习资料 · 2026</div>
+  <h1>遥感概论<br>期末复习资料</h1>
+  <p class="hero-sub">涵盖第1–10章全部核心概念，面向<strong>名词解释、简答题、论述题</strong>三种题型系统整理</p>
+  <div class="hero-tips">
+    <div class="hero-tip"><strong>名词解释</strong> 抓定义 + 核心特征</div>
+    <div class="hero-tip"><strong>简答题</strong> 条目清晰、举例说明</div>
+    <div class="hero-tip"><strong>论述题</strong> 对比 + 联系 + 应用场景</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===================== CH1 ===================== -->
+<section class="chapter" id="ch1">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 01</span>
+    <div>
+      <div class="chapter-title">绪论 · 遥感基本概念与发展历程</div>
+      <div class="chapter-sub">遥感定义 / 系统组成 / 类型划分 / 特点 / 发展阶段</div>
+    </div>
+  </div>
+
+  <div class="section-label">核心名词解释</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🛰️</span>遥感（Remote Sensing）</div>
+      <div class="term-body">在不直接接触目标物的条件下，通过传感器探测目标的<strong>电磁辐射信息</strong>，经传输、处理与分析，获取目标地物的空间分布与属性特征的技术体系。核心：<em>非接触、电磁波</em>。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📡</span>传感器（Sensor）</div>
+      <div class="term-body">搭载于遥感平台上，用于收集、探测和记录地物电磁辐射能量的仪器设备。分为<strong>主动式</strong>（自身发射并接收，如雷达、激光雷达）和<strong>被动式</strong>（只接收自然辐射，如光学相机、热红外扫描仪）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌍</span>遥感平台</div>
+      <div class="term-body">搭载传感器的运载工具。按高度分：<strong>近地面平台</strong>（&lt;300m，三脚架/车载）→ <strong>航空平台</strong>（100m~30km，飞机/无人机/气球）→ <strong>航天平台</strong>（数百至数万km，卫星/飞船）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔄</span>主动遥感 vs 被动遥感</div>
+      <div class="term-body"><strong>主动遥感</strong>：传感器自身向目标发射电磁波，再接收回波（雷达SAR、LiDAR）。全天时全天候。<strong>被动遥感</strong>：传感器只接收目标地物反射或发射的自然辐射（光学/热红外）。依赖太阳或地物自身热辐射。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">⏱️</span>时间分辨率</div>
+      <div class="term-body">同一地区遥感影像<strong>重复覆盖的频率</strong>（重访周期）。时间分辨率越高，越能反映目标动态变化。Landsat重访周期16天，气象卫星可达30分钟。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📐</span>空间分辨率</div>
+      <div class="term-body">图像上能区分出的<strong>最小地面目标尺寸</strong>，即像元对应的地面距离。空间分辨率越小（数值越小），图像越精细。IKONOS达0.82m，Landsat 30m，MODIS 250~1000m。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌈</span>光谱分辨率</div>
+      <div class="term-body">传感器能区分的<strong>最小波长间隔</strong>，体现图像色彩所反映的波段数、波长范围及间隔。高光谱传感器（如Hyperion）光谱分辨率可达10nm，普通多波段（如Landsat TM）约100nm。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">💡</span>辐射分辨率</div>
+      <div class="term-body">图像上能分辨的<strong>最小辐射强度差异</strong>。通常用量化位数（bit）表示：8bit=256灰度级；12bit=4096灰度级。位数越高，辐射分辨率越高，细节越丰富。</div>
+    </div>
+  </div>
+
+  <div class="section-label">遥感发展五个阶段</div>
+  <div class="key-list">
+    <li><strong>无记录地面遥感（1608–1838）</strong>：望远镜发明，肉眼目视观察，无成像记录</li>
+    <li><strong>有记录地面遥感（1839–1857）</strong>：摄影技术发明（达盖尔银版法），地面摄影记录</li>
+    <li><strong>航空摄影遥感（1858–1956）</strong>：用气球/飞机搭载相机，航空摄影大规模应用于军事侦察与地形测绘</li>
+    <li><strong>航天摄影遥感（1957–1998）</strong>：人造卫星（苏联1957年）→ Landsat系列（1972年），卫星遥感系统化</li>
+    <li><strong>遥感发展新纪元（1999—）</strong>：高分辨率商业卫星（IKONOS 1m，2001年QuickBird 0.61m）、高光谱、SAR、无人机、大数据、人工智能影像识别全面融合</li>
+  </div>
+
+  <div class="section-label">遥感的主要特点（论述扩展）</div>
+  <div class="callout callout-blue">
+    <strong>四大特点：</strong><br>
+    ① <strong>宏观性</strong>：一景Landsat影像覆盖185×185km²，实现区域/全球尺度快速观测；<br>
+    ② <strong>综合性</strong>：多波段同步获取，综合反映地表各类信息；<br>
+    ③ <strong>动态性</strong>：重复覆盖，可监测地物随时间的动态变化；<br>
+    ④ <strong>快速性</strong>：获取资料速度远快于传统地面调查，且可在危险或人难以到达区域工作。
+  </div>
+
+  <div class="section-label">简答题精要</div>
+  <div class="qa-list">
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>遥感技术系统由哪些部分组成？</div>
+      <div class="qa-a">遥感技术系统由五部分构成：①<strong>目标物的电磁波特性</strong>（信息来源基础）→ ②<strong>信息获取</strong>（传感器+平台采集电磁辐射）→ ③<strong>信息接收</strong>（地面接收站接收卫星下传数据）→ ④<strong>信息处理</strong>（辐射校正、几何校正、图像增强、分类等）→ ⑤<strong>信息应用</strong>（土地利用、灾害监测、农业评估等）。</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>中国遥感技术取得了哪些重大成就？</div>
+      <div class="qa-a">① <strong>高分系列卫星</strong>：高分七号（亚米级立体测绘，0.5m分辨率）、高分五号（高光谱，330波段）；② <strong>资源卫星</strong>：中巴资源一号（1999年）、CBERS系列；③ <strong>微波遥感</strong>：高分三号C波段SAR，1m~500m可调空间分辨率；④ <strong>商业高光谱</strong>：珠海一号（256波段，10m分辨率）；⑤ <strong>中国空间站</strong>搭载多种遥感载荷，全面推进天地一体化观测。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH2 ===================== -->
+<section class="chapter" id="ch2">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 02</span>
+    <div>
+      <div class="chapter-title">遥感物理基础</div>
+      <div class="chapter-sub">电磁波谱 / 黑体辐射 / 大气效应 / 地物波谱 / 颜色合成</div>
+    </div>
+  </div>
+
+  <div class="section-label">电磁波谱与遥感波段</div>
+  <div class="band-row">
+    <div class="band-cell band-uv"><div class="band-label">紫外</div>0.01–0.38μm</div>
+    <div class="band-cell band-vis"><div class="band-label">可见光</div>0.38–0.76μm</div>
+    <div class="band-cell band-nir"><div class="band-label">近红外</div>0.76–3.0μm</div>
+    <div class="band-cell band-mir"><div class="band-label">中红外</div>3.0–6.0μm</div>
+    <div class="band-cell band-tir"><div class="band-label">热红外</div>6.0–15μm</div>
+    <div class="band-cell band-mw"><div class="band-label">微波</div>1mm–1m</div>
+  </div>
+
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">⚡</span>电磁波基本性质</div>
+      <div class="term-body">横波，在真空中以光速传播（c=3×10⁸ m/s）。关键公式：<em>c = fλ</em>（频率×波长=光速）；<em>E = hf</em>（能量=普朗克常数×频率）。具有<strong>波粒二象性</strong>：波长短→粒子性强；波长长→波动性强。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">⬛</span>黑体辐射三大定律</div>
+      <div class="term-body">①<strong>普朗克定律</strong>：描述黑体辐射能量随波长的分布。②<strong>斯忒藩-玻尔兹曼定律</strong>：黑体总辐射通量∝T⁴（温度越高，辐射能量越大）。③<strong>维恩位移定律</strong>：峰值波长λ_max = 2898/T（μm·K），温度越高，峰值波长越短。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌤️</span>大气窗口</div>
+      <div class="term-body">电磁辐射通过大气时，被吸收和散射较少、<strong>透过率较高</strong>的波段。是选择遥感工作波段的重要依据。主要窗口：0.3–1.3μm（可见光/近红外）、1.5–1.8μm、2.0–2.6μm、3.5–5.0μm、8–14μm、1mm–1m（微波）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">💨</span>瑞利散射</div>
+      <div class="term-body">散射粒子直径远小于入射波长时发生（大气分子引起）。散射强度<em>I ∝ λ⁻⁴</em>，波长越短散射越强。<strong>晴天天空呈蓝色</strong>的原因——蓝光被强烈散射。对可见光影响大，对红外和微波影响可忽略。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌫️</span>米氏散射</div>
+      <div class="term-body">粒子直径与入射波长相当时发生（云、雾、气溶胶引起）。散射强度<em>I ∝ λ⁻²</em>，前向散射强于后向散射。对红外波段影响不可忽视。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">☁️</span>非选择性散射</div>
+      <div class="term-body">粒子直径远大于波长时发生（水滴、尘埃引起）。散射强度<em>与波长无关</em>，各波长散射强度相同。<strong>云雾呈白色</strong>的原因——各波长可见光被等量散射。</div>
+    </div>
+  </div>
+
+  <div class="section-label">典型地物波谱特征（重点）</div>
+  <table class="cmp-table">
+    <tr><th>地物类型</th><th>主要光谱特征</th><th>识别依据</th></tr>
+    <tr><td>绿色植物</td><td>可见光区受叶绿素强烈吸收，0.55μm有小反射峰（绿色）；近红外0.7–1.3μm有50–60%强反射峰；1.45、1.95、2.7μm有水分吸收带</td><td>近红外强反射是植物最显著特征，近红外波段可区分植物种类</td></tr>
+    <tr><td>土壤</td><td>反射率由可见光到近红外呈缓坡上升；受质地、有机质、水分、氧化铁影响；粉砂&gt;砂土&gt;腐殖质土</td><td>反射光谱整体平滑，无明显吸收特征</td></tr>
+    <tr><td>清洁水体</td><td>可见光蓝绿波段反射率约4–5%；0.6μm以上反射率急剧下降；近红外波段几乎全吸收</td><td>近红外波段是水陆分界最清晰的波段</td></tr>
+    <tr><td>浑浊水体</td><td>含泥沙→可见光反射率升高，峰值蓝移至黄红区；含叶绿素→近红外反射率明显抬高</td><td>水色变化反映水质成分</td></tr>
+    <tr><td>积雪</td><td>0.4–0.6μm反射率接近100%（白色）；近红外随波长增加吸收增强，可用于区分雪和云</td><td>可见光高反射、近红外低反射是区分云/雪的关键</td></tr>
+  </table>
+
+  <div class="section-label">地球辐射的三个波段区间</div>
+  <div class="callout callout-blue">
+    <strong>① 0.3–2.5μm（可见光+近红外）</strong>：地表以<em>反射太阳辐射</em>为主，地球自身热辐射可忽略。光学遥感的主要工作区间。<br>
+    <strong>② 2.5–6.0μm（中红外）</strong>：太阳反射辐射和地球热辐射<em>共同存在</em>，难以区分，很少被利用。<br>
+    <strong>③ 6.0μm以上（热红外）</strong>：以<em>地球自身热辐射</em>为主，地表反射太阳辐射可忽略。热红外遥感的工作区间。
+  </div>
+
+  <div class="section-label">光与颜色</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🎨</span>颜色三要素</div>
+      <div class="term-body"><strong>色调</strong>（Hue）：颜色的类别，由主波长决定。<strong>明度</strong>（Brightness）：颜色明暗程度，取决于辐射强弱。<strong>饱和度</strong>（Saturation）：颜色纯度，波段越窄、频率越单一，饱和度越高。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔴🟢🔵</span>三原色与三间色</div>
+      <div class="term-body"><strong>三原色</strong>：红(R)、绿(G)、蓝(B)——任一色不能由其余两色混合产生。<strong>三间色</strong>：红+绿=黄；红+蓝=品红；绿+蓝=青。<strong>三补色</strong>：红+青=白；绿+品红=白；蓝+黄=白。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🖼️</span>真彩色 vs 假彩色合成</div>
+      <div class="term-body"><strong>真彩色合成</strong>：分解和合成所用滤光系统波段一一对应，合成图像与实物颜色相同（RGB对应蓝绿红波段）。<strong>假彩色合成</strong>：采用非对应滤光系统，图像颜色与实物不同。标准假彩色：近红外→红、红波段→绿、绿波段→蓝，植被呈<em>红色</em>。</div>
+    </div>
+  </div>
+
+  <div class="section-label">简答题精要</div>
+  <div class="qa-list">
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>大气散射有哪三种类型？各有什么特点？</div>
+      <div class="qa-a">① <strong>瑞利散射</strong>：粒子直径＜＜波长，由大气分子引起，I∝λ⁻⁴，蓝光散射最强（天空呈蓝色），对可见光影响最大，对微波可忽略。② <strong>米氏散射</strong>：粒子直径≈波长，由云雾气溶胶引起，I∝λ⁻²，前向散射强，对红外有影响。③ <strong>非选择性散射</strong>：粒子直径＞＞波长，由水滴尘埃引起，散射强度与波长无关，各波长散射均等（云雾呈白色）。</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>为什么植物在近红外波段反射率很高？</div>
+      <div class="qa-a">植物叶片在近红外（0.7–1.3μm）有强反射，原因是叶细胞的<strong>海绵状叶肉结构</strong>（细胞间隙大量存在），形成强烈的多重内部反射，使近红外辐射被大量反射出来而不被吸收。不同植物的叶细胞结构差异，使近红外波段成为<strong>区分植物种类的最佳波段</strong>。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH3 ===================== -->
+<section class="chapter" id="ch3">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 03</span>
+    <div>
+      <div class="chapter-title">遥感技术系统</div>
+      <div class="chapter-sub">遥感平台分类 / 卫星轨道 / 主要对地观测卫星</div>
+    </div>
+  </div>
+
+  <div class="section-label">核心名词解释</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🛸</span>太阳同步轨道</div>
+      <div class="term-body">卫星轨道平面的进动角速度与太阳相同（约1°/天），使卫星每次过境的<strong>当地太阳时相同</strong>，保证光照条件一致。Landsat（98min周期，近极地，倾角约98.2°）是典型案例。便于多时相图像对比分析。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌐</span>地球同步轨道</div>
+      <div class="term-body">卫星运行周期与地球自转周期相同（24h），卫星相对地面<strong>静止</strong>，可持续监测固定区域。高度约35786km。气象卫星（如FY-2/4）多采用此轨道。覆盖范围大，时间分辨率极高，但空间分辨率相对较低。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📏</span>扫描宽度（幅宽）</div>
+      <div class="term-body">传感器在地面的<strong>覆盖宽度</strong>，由传感器视场角和轨道高度决定。Landsat幅宽185km，MODIS 2330km，高分系列约60km。幅宽越大，时间分辨率越高；幅宽越小，空间分辨率通常越高（设计上的权衡）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔁</span>重访周期</div>
+      <div class="term-body">卫星<strong>再次经过同一地点上空</strong>所需的时间。Landsat-8重访周期16天；SPOT可调整姿态，最短1–2天；MODIS约1–2天；气象卫星（地球同步）可达分钟级。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🚀</span>SRTM</div>
+      <div class="term-body">航天飞机雷达地形测绘任务（2000年，奋进号），在11天内获取北纬60°到南纬56°的地表干涉雷达数据，生成<strong>全球30m分辨率DEM</strong>，覆盖80%以上陆地表面，是遥感发展史上的里程碑。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔭</span>Landsat系列</div>
+      <div class="term-body">美国地球资源卫星系列（1972年至今）。关键节点：Landsat-1（1972，MSS 4波段）、Landsat-5（1984，TM 7波段，30m）、Landsat-7（1999，ETM+ 8波段）、Landsat-8（2013，OLI+TIRS）、Landsat-9（2021）。全球最长时间序列陆地卫星数据集。</div>
+    </div>
+  </div>
+
+  <div class="section-label">简答题精要</div>
+  <div class="qa-list">
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>遥感平台按高度如何分类？各有何特点？</div>
+      <div class="qa-a"><strong>近地面平台</strong>（&lt;300m）：三脚架、遥感车、遥感塔，用于地面定标和模型建立。<strong>航空平台</strong>（100m~30km）：飞机、无人机、气球，机动灵活，地面分辨率高，调查周期短。<strong>航天平台</strong>（数百至数万km）：卫星、飞船、航天飞机，覆盖范围广，可对地球进行宏观综合动态观察，重复覆盖能力强。</div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>近极地太阳同步轨道的特征是什么？</div>
+      <div class="qa-a">轨道面倾角略大于90°（约98°），轨道平面每天向东进动约1°，与太阳公转角速度一致，使卫星每次经过升交点（或降交点）的<strong>当地太阳时相同</strong>（如Landsat上午10:01过境）。优势：光照条件稳定，便于不同时相图像比较；可实现全球覆盖。地球每自转一圈，卫星绕地球飞行约14圈（Landsat轨道周期约99分钟）。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH4 ===================== -->
+<section class="chapter" id="ch4">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 04</span>
+    <div>
+      <div class="chapter-title">航空摄影与无人机航测</div>
+      <div class="chapter-sub">像片种类 / 几何特征 / 航向旁向重叠 / 立体测图 / UAV</div>
+    </div>
+  </div>
+
+  <div class="section-label">核心名词解释</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">✈️</span>航空摄影测量</div>
+      <div class="term-body">在飞机等平台上用航摄仪对地面连续摄取像片，结合地面控制点、调绘和立体测绘，绘制地形图的测量作业。基本原理：中心投影的<strong>透视变换</strong>，将中心投影的航摄像片变换为正射投影。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📐</span>像片倾斜角</div>
+      <div class="term-body">摄影机主光轴与通过透镜中心的地面铅垂线（主垂线）间的夹角。<strong>垂直摄影</strong>：倾角=0°，胶片平行地面，最常用。<strong>近似垂直摄影</strong>：倾角&lt;3°，实际大量采用。<strong>倾斜摄影</strong>：倾角&gt;3°，多视角三维建模用。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔄</span>影像重叠度</div>
+      <div class="term-body"><strong>航向重叠</strong>（沿飞行方向）：一般60%，不小于53%。<strong>旁向重叠</strong>（相邻航线间）：一般15%以上。重叠度保证立体测图和影像拼接，是航空摄影的基本质量要求。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🏗️</span>倾斜摄影</div>
+      <div class="term-body">从多个角度（通常1个垂直+4个倾斜视角）同时拍摄地面，可获取建筑物<strong>侧面纹理</strong>信息，配合SfM算法构建高精度<strong>实景三维模型</strong>（3D Mesh）。无人机倾斜摄影是城市建模的主流技术。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🛩️</span>无人机（UAV）航测</div>
+      <div class="term-body">以无人驾驶飞行器为平台的航空摄影测量。优势：低空高分辨率（可达厘米级）、灵活机动、成本低、可进入危险区域。常用于小范围精细测绘、灾情评估、精准农业、文化遗产记录等。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🗺️</span>正射影像（DOM）</div>
+      <div class="term-body">经过<strong>正射纠正</strong>的航空/卫星影像，消除了中心投影造成的地物位移（视差），使影像具有正射投影的几何特性，可直接量测距离和面积。</div>
+    </div>
+  </div>
+
+  <div class="section-label">论述题要点：航空像片的几何特征</div>
+  <div class="callout callout-gold">
+    航空像片采用<strong>中心投影</strong>，不同于地图的正射投影（垂直投影）。因此，地形起伏（高度差）和像片倾斜均会引起<strong>几何畸变</strong>：地面高点向外位移（"投影差"），地面低点向内位移。山区起伏越大，投影差越大。正射纠正（DEM支持）和空三加密可消除这些误差，生成正射影像。
+  </div>
+</section>
+
+<!-- ===================== CH5 ===================== -->
+<section class="chapter" id="ch5">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 05</span>
+    <div>
+      <div class="chapter-title">遥感图像特征与处理</div>
+      <div class="chapter-sub">辐射校正 / 几何校正 / 图像增强 / 分类方法 / 精度评估 / 变化检测</div>
+    </div>
+  </div>
+
+  <div class="section-label">图像处理流程（重点）</div>
+  <div class="key-list">
+    <li><strong>辐射定标</strong>：将传感器记录的DN值（数字量化值）转换为辐射亮度值（W·m⁻²·sr⁻¹·μm⁻¹）</li>
+    <li><strong>大气校正</strong>：消除大气散射（瑞利散射等）对遥感信号的干扰，将辐射亮度转换为地表反射率。方法：暗像元法（黑体法）、直方图法、FLAASH模型。</li>
+    <li><strong>几何校正</strong>：消除图像几何畸变（平台姿态、地球曲率、地形起伏、传感器扫描方式等引起）。需要地面控制点（GCP）。</li>
+    <li><strong>图像增强</strong>：提高图像视觉质量和信息可提取性（对比度拉伸、空间滤波、主成分变换等）</li>
+  </div>
+
+  <div class="section-label">核心名词解释</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📊</span>数字直方图</div>
+      <div class="term-body">以像元亮度值（0–255）为横轴，以各亮度级出现的<strong>频率</strong>为纵轴的分布图。用途：①了解图像整体亮度分布；②判断图像质量（偏亮/偏暗/对比度低）；③确定地物分类阈值；④指导图像增强处理。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🗂️</span>BSQ/BIL/BIP存储格式</div>
+      <div class="term-body"><strong>BSQ（按波段）</strong>：先存第一波段所有像元，再存第二波段。便于波段间运算。<strong>BIL（按行）</strong>：先存第一行所有波段，再存第二行。空间和光谱均可访问。<strong>BIP（按像元）</strong>：先存第一像元所有波段值，再存第二像元。便于像元光谱运算。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🤖</span>非监督分类</div>
+      <div class="term-body">在<strong>无先验类别知识</strong>的情况下，按像元光谱相似度自动聚类。方法：<em>K-means</em>（固定类数，迭代更新均值）、<em>ISODATA</em>（K-means基础上增加类别合并和分裂功能）。优点：快速、客观。缺点：类别需人工赋予地物含义。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🎯</span>监督分类</div>
+      <div class="term-body">通过实况调查建立<strong>训练样本（ROI）</strong>，提取各类别统计特征（均值向量、协方差矩阵），再对全图像素进行判别。方法：最大似然法、最小距离法、支持向量机（SVM）、决策树、神经网络等。精度通常高于非监督分类。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📋</span>混淆矩阵（误差矩阵）</div>
+      <div class="term-body">分类精度评估的核心工具。用实际地物类别（真实数据）对照分类结果，构建N×N的矩阵。从中提取：<strong>总体精度</strong>（正确分类像元数/总像元数）、<strong>Kappa系数</strong>（考虑随机一致性的精度指标）、生产者精度、用户精度。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔍</span>面向对象分类</div>
+      <div class="term-body">先将影像<strong>分割</strong>为有意义的图像对象（Segment），再对对象提取光谱、纹理、形状等多种特征进行分类。优势：克服单像元分类的"椒盐噪声"，充分利用上下文信息，适合高分辨率影像分析。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">⏱️</span>变化检测</div>
+      <div class="term-body">通过分析<strong>不同时相</strong>遥感影像的差异，提取地物的变化信息。方法：图像差值法、图像比值法、分类后比较（分别分类→比较类别变化）、深度学习变化检测（双时相特征提取）。应用：建筑物更新、城市扩张监测、灾后评估。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌾</span>NDVI时序分析</div>
+      <div class="term-body">NDVI=(NIR-R)/(NIR+R)，反映植被生长状态。利用<strong>时间序列NDVI曲线</strong>的物候特征（峰值时间、峰值个数、曲线形状）区分农作物类型。冬小麦-夏玉米有三个波峰；单季玉米/红薯只有一个波峰。是作物精细分类的核心方法。</div>
+    </div>
+  </div>
+
+  <div class="section-label">论述题：监督分类 vs 非监督分类</div>
+  <table class="cmp-table">
+    <tr><th>对比维度</th><th>非监督分类（聚类分析）</th><th>监督分类</th></tr>
+    <tr><td>训练样本</td><td>不需要，完全基于数据本身</td><td>需要，质量直接影响精度</td></tr>
+    <tr><td>先验知识</td><td>不需要</td><td>需要了解地物类别</td></tr>
+    <tr><td>分类过程</td><td>自动聚类→人工赋予类别含义</td><td>建立判别函数→分类全图</td></tr>
+    <tr><td>分类精度</td><td>相对较低</td><td>通常较高（取决于样本质量）</td></tr>
+    <tr><td>典型方法</td><td>K-means、ISODATA</td><td>最大似然法、SVM、神经网络</td></tr>
+    <tr><td>适用场景</td><td>陌生地区、无野外数据、探索性研究</td><td>有训练样本、精度要求高的应用</td></tr>
+  </table>
+</section>
+
+<!-- ===================== CH7 ===================== -->
+<section class="chapter" id="ch7">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 07</span>
+    <div>
+      <div class="chapter-title">热红外遥感</div>
+      <div class="chapter-sub">基本原理 / 比辐射率 / 地表温度反演 / 典型应用</div>
+    </div>
+  </div>
+
+  <div class="section-label">核心名词解释</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌡️</span>热红外遥感</div>
+      <div class="term-body">利用传感器探测地物<em>自身发射的热红外辐射</em>（不依赖太阳），获取地球表面温度及热场分布信息的遥感技术。工作波段：3–14μm（中红外+远红外），最优观测窗口：<strong>8–14μm</strong>（大气窗口，避开臭氧9.6μm吸收峰）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">⬛</span>比辐射率（发射率 ε）</div>
+      <div class="term-body">真实地物的辐射能量与同温度黑体辐射能量之比（0&lt;ε≤1）。黑体ε=1。岩石、土壤ε约0.95–0.97；植被约0.96–0.99；水体约0.99；金属表面ε可低至0.1。<strong>高反射率物体是弱发射体</strong>（ε=1-ρ，反射率+发射率≈1，对不透明体）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌡️</span>亮度温度（亮温，Tb）</div>
+      <div class="term-body">将传感器接收到的辐射亮度代入普朗克公式，<em>假设目标为黑体</em>反推得到的温度值。亮温≠真实温度（比辐射率&lt;1时，亮温低于真实温度）。需经<strong>温度-比辐射率分离</strong>才能得到真实地表温度。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🏙️</span>城市热岛效应</div>
+      <div class="term-body">城区气温/地表温度显著高于郊区的现象。热红外遥感可直接观测<strong>地表温度（LST）</strong>空间分布，揭示热岛格局。成因：城市不透水面（建筑/道路）比辐射率高、人工热排放、绿地减少、蒸散弱化。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌋</span>热惯量</div>
+      <div class="term-body">物体<strong>抵抗温度变化</strong>的能力，与密度、比热容和热导率有关（热惯量P=√(kρc)）。热惯量大→日温差小（如水体）；热惯量小→日温差大（如干沙）。HCMM卫星（1978年）首次专门用于热惯量观测，可用于岩石识别、土壤含水量探测。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔥</span>热红外遥感主要应用</div>
+      <div class="term-body">①<strong>地表温度反演</strong>（LST）；②<strong>城市热岛</strong>监测；③<strong>火灾/火山</strong>探测（MODIS 4μm通道对高温目标极敏感）；④<strong>旱灾监测</strong>（蒸散减弱→地表温度升高）；⑤<strong>管网渗漏</strong>探测；⑥<strong>地热资源</strong>调查；⑦<strong>夜间目标</strong>识别（全天时工作）。</div>
+    </div>
+  </div>
+
+  <div class="section-label">热红外 vs 光学遥感对比</div>
+  <div class="callout callout-red">
+    <strong>光学遥感</strong>：测量地物<em>反射的太阳辐射</em>，工作波段0.3–2.5μm，白天工作，受云雾影响大。<br>
+    <strong>热红外遥感</strong>：测量地物<em>自身发射的热辐射</em>，工作波段3–14μm，可<em>昼夜全天时</em>工作，可穿透轻薄云层。最大优势：<strong>夜间成像</strong>（地物热辐射不依赖太阳）。
+  </div>
+
+  <div class="section-label">主要热红外传感器</div>
+  <table class="cmp-table">
+    <tr><th>传感器</th><th>卫星平台</th><th>波段数</th><th>空间分辨率</th><th>典型应用</th></tr>
+    <tr><td>ASTER</td><td>EOS/Terra (美国)</td><td>5</td><td>90m</td><td>岩石矿物识别、温度反演</td></tr>
+    <tr><td>MODIS</td><td>Terra/Aqua (美国)</td><td>16</td><td>1km</td><td>全球地表温度、火点探测</td></tr>
+    <tr><td>TM/ETM+ Band6</td><td>Landsat</td><td>1</td><td>120m/60m</td><td>城市热岛分析</td></tr>
+    <tr><td>TIRS</td><td>Landsat-8/9</td><td>2</td><td>100m</td><td>地表温度反演</td></tr>
+    <tr><td>IRS红外相机</td><td>HJ-1A/B (中国)</td><td>2</td><td>150m/300m</td><td>环境监测</td></tr>
+  </table>
+</section>
+
+<!-- ===================== CH8 ===================== -->
+<section class="chapter" id="ch8">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 08</span>
+    <div>
+      <div class="chapter-title">微波遥感</div>
+      <div class="chapter-sub">SAR / 雷达高度计 / 散射计 / 被动微波 / GRACE / GNSS-R</div>
+    </div>
+  </div>
+
+  <div class="section-label">核心名词解释</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📡</span>微波遥感</div>
+      <div class="term-body">利用波长在<strong>1mm–1m</strong>范围内的微波进行遥感探测的技术。核心优势：①<em>全天时全天候</em>（能穿透云层、雨层和部分地物）；②对<em>地表植被和土壤</em>有一定穿透能力；③对<em>水分、冰雪</em>极为敏感。分为<strong>主动微波</strong>（雷达）和<strong>被动微波</strong>（辐射计）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📻</span>主要微波波段</div>
+      <div class="term-body">L波段（1–2GHz，15–30cm）：土壤湿度、地下穿透；C波段（4–8GHz，3.75–7.5cm）：海洋风场，ERS/Sentinel-1；X波段（8–12.5GHz，2.4–3.75cm）：城市监测；Ku波段（12.5–18GHz）：降水、海冰；Ka波段（26.5–40GHz）：精密测距。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🎯</span>合成孔径雷达（SAR）</div>
+      <div class="term-body">利用飞行器运动产生的<strong>合成大孔径天线</strong>来提高方位分辨率的相干侧视雷达。核心原理：以小天线模拟大天线（"合成"），用线性调频脉冲压缩技术实现高分辨率成像。优点：方位分辨率与距离无关（天线越小分辨率反而越高）。1978年SEASAT-A首颗SAR卫星。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔄</span>SAR极化</div>
+      <div class="term-body">雷达发射和接收信号的<strong>电场方向</strong>特性。水平极化（H）和垂直极化（V）。极化组合：HH（发H收H）、VV、HV（发H收V，交叉极化）。<em>不同地物在不同极化下后向散射特征不同</em>，全极化SAR（四种组合）信息量最丰富，可区分体散射（植被）、面散射（地面）和二次散射（建筑物角反射器）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📏</span>雷达高度计</div>
+      <div class="term-body">向正下方发射微波脉冲，精确测量<strong>卫星到地表的垂直距离</strong>，精度达厘米级。不成像的主动微波传感器。应用：海面高度（SSH）、有效波高（SWH）、冰盖高程变化、内陆湖泊/河流水位。1973年Skylab首颗星载雷达高度计。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌊</span>微波散射计</div>
+      <div class="term-body">定量测量地物<strong>后向散射系数</strong>的不成像主动微波传感器。主要用于<em>均质区域</em>测量（有效波高、海面风场）。C波段（5.3GHz）较少受云雨影响；Ku波段（13.5GHz）对低速风更敏感。ESA用C波段（ASCAT），NASA用Ku波段（Seawinds）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📻</span>微波辐射计（被动微波）</div>
+      <div class="term-body">被动接收地物<strong>自身发射的微波</strong>，获取亮度温度图像。不发射电磁波，全天候工作。AMSR-E（6个频率、12通道）测量海冰、土壤湿度、降水、海面温度等。分辨率较低（5–56km）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌍</span>GRACE重力卫星</div>
+      <div class="term-body">NASA/DLR联合任务（2002–2017，GRACE-FO续航2018–）。双星相距约220km，通过精确测量<strong>星间距离变化</strong>（精度10μm/220km）反演地球重力场变化。应用：陆地水储量变化（TWS）、地下水监测、冰盖消融、海平面变化、地震引起的地壳变形。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🛰️</span>GNSS-R</div>
+      <div class="term-body">利用GNSS（GPS/BDS等）信号被地表<strong>反射</strong>后的信号进行遥感的技术。属于<em>机会信号双基地雷达</em>。无需发射机，利用已有卫星导航信号。应用：海面高度、海冰、雪深、土壤湿度、生物量反演。CYGNSS卫星（8颗，2016）专门用于GNSS-R热带海洋风场观测。</div>
+    </div>
+  </div>
+
+  <div class="section-label">论述题：微波遥感 vs 光学遥感</div>
+  <table class="cmp-table">
+    <tr><th>对比维度</th><th>光学遥感</th><th>微波遥感</th></tr>
+    <tr><td>信号来源</td><td>太阳反射辐射（被动），地物热辐射（热红外）</td><td>雷达自身发射信号（主动SAR）或地物微波辐射（被动）</td></tr>
+    <tr><td>工作条件</td><td>白天为主（热红外可夜间），受云雾严重影响</td><td>全天时全天候，可穿透云层、雨层</td></tr>
+    <tr><td>穿透能力</td><td>几乎无穿透，只探测地表</td><td>对植被、干燥土壤有穿透，可探测冠层下及次表层</td></tr>
+    <tr><td>探测信息</td><td>光谱反射特性（颜色、植被、地物类型）</td><td>介电特性、表面粗糙度、含水量（对水分极敏感）</td></tr>
+    <tr><td>空间分辨率</td><td>高（可达亚米级）</td><td>SAR可达米级；被动微波较低（km级）</td></tr>
+    <tr><td>典型应用</td><td>土地覆盖分类、植被监测、城市测绘</td><td>洪涝监测（SAR穿透云雨）、海冰、地形测绘、形变监测（InSAR）</td></tr>
+  </table>
+
+  <div class="section-label">简答题：真实孔径雷达 vs 合成孔径雷达</div>
+  <div class="qa-list">
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">简答</span>什么是合成孔径雷达？它与真实孔径雷达有何区别？</div>
+      <div class="qa-a"><strong>真实孔径雷达（RAR）</strong>：用实际物理天线进行工作的侧视雷达。方位分辨率取决于天线孔径：孔径越大、距离越近、波长越短，分辨率越高。远距离高分辨率需要极长天线，实际难以实现。<br><br><strong>合成孔径雷达（SAR）</strong>：利用飞行平台运动，将小天线在不同位置发射/接收的信号进行相干处理，等效形成一个"合成的"大孔径天线。关键特点：<em>方位分辨率与飞行距离无关</em>，理论上天线实际孔径越小，合成孔径分辨率反而越高（约为实际天线长度的1/2）。1951年Karl Wiley提出SAR概念，1978年SEASAT-A首次星载SAR验证。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH9 ===================== -->
+<section class="chapter" id="ch9">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 09</span>
+    <div>
+      <div class="chapter-title">激光雷达（LiDAR）</div>
+      <div class="chapter-sub">工作原理 / 测距方法 / 平台类型 / 点云处理 / 典型应用</div>
+    </div>
+  </div>
+
+  <div class="section-label">核心名词解释</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔦</span>激光雷达（LiDAR）</div>
+      <div class="term-body">Light Detection and Ranging。激光探测及测距系统。向目标发射<strong>激光脉冲</strong>，接收从目标反射的回波，通过时间差、相位差或几何关系计算目标距离，从而精确获取目标的三维坐标信息。常用激光波长：<em>绿光532nm</em>（可穿透水面）和<em>近红外1064nm</em>（陆地）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">⏱️</span>脉冲法测距（TOF）</div>
+      <div class="term-body">Time of Flight。发射激光脉冲后，测量<strong>发射与接收之间的时间差Δt</strong>，计算距离：<em>R = cΔt/2</em>（c为光速，除以2因为往返）。方法简单，效率高，适合远距离测量（星载/机载LiDAR）。精度受脉冲宽度和计时器分辨率限制。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌀</span>相位法测距</div>
+      <div class="term-body">通过测量连续调制波在往返传播过程中产生的<strong>相位差</strong>，间接测定传播时间。精度可达<em>毫米级</em>，优于脉冲法。但量程受调制频率限制（频率越低量程越大，精度越低），适合中短距离精密测量（地基LiDAR常用）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📐</span>几何测距法（三角法）</div>
+      <div class="term-body">基于三角测量原理（Triangulation），利用激光源-目标-探测器之间的几何关系计算距离。LiDAR内部包含CMOS元件，根据两个三角形相似原理测定距离。适合<em>近距离精密测量</em>，工业检测中常用。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🏔️</span>点云（Point Cloud）</div>
+      <div class="term-body">LiDAR扫描产生的海量三维坐标点的集合，每个点包含(X,Y,Z)坐标及强度值、回波次数等信息。可直接表达地物的三维结构。后续处理：<strong>滤波</strong>（分离地面点与非地面点）→ <strong>插值</strong>（生成DEM/DSM）→ <strong>分类</strong>（建筑物、植被、地面等）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌲</span>多次回波</div>
+      <div class="term-body">激光脉冲遇到有多层结构的目标（如树冠）时，可被多层目标依次反射，产生<strong>多个回波</strong>（首次回波、中间回波、末次回波）。首次回波反映冠层顶部，末次回波穿透树冠反映地面。多次回波对三维森林结构参数提取至关重要。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">✈️</span>机载LiDAR系统组成</div>
+      <div class="term-body">①<strong>激光测距系统</strong>（测距单元+光学机械扫描单元）；②<strong>定位定向系统（POS）</strong>：IMU惯性导航（获取姿态）+ 差分GPS（获取精确位置）；③<strong>数据同步控制系统</strong>。三者联合解算才能将激光点云转换到地理坐标系。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌍</span>LiDAR相较光学遥感的优势</div>
+      <div class="term-body">①<strong>主动探测</strong>，不依赖太阳光，可全天时工作；②可<strong>穿透植被</strong>获取林冠下地面信息（多次回波）；③直接获取<strong>三维坐标</strong>，无需立体像对推算；④高精度，地形测量精度可达厘米级；⑤可获取<strong>垂直结构信息</strong>（森林冠层高度、密度等）。</div>
+    </div>
+  </div>
+
+  <div class="section-label">地基 vs 机载 vs 星载LiDAR</div>
+  <table class="cmp-table">
+    <tr><th>平台类型</th><th>覆盖范围</th><th>精度</th><th>典型应用</th></tr>
+    <tr><td>地基LiDAR（TLS）</td><td>小（单点或建筑物尺度）</td><td>极高（毫米级）</td><td>建筑物三维建模、文物保护、精密工程测量、林分结构参数</td></tr>
+    <tr><td>机载LiDAR（ALS）</td><td>中等（区域，km²~百km²）</td><td>高（分米~厘米级）</td><td>地形测绘（DEM）、堤围测量、森林参数提取、城市三维建模</td></tr>
+    <tr><td>星载LiDAR（如ICESat-2）</td><td>全球</td><td>中等（分米级）</td><td>冰盖高程变化、全球湖泊水位、植被冠层高度全球映射</td></tr>
+  </table>
+
+  <div class="section-label">LiDAR典型应用（论述扩展）</div>
+  <div class="key-list">
+    <li><strong>地形测绘（DEM提取）</strong>：点云滤波（分离地面点）→ 空间插值（IDW/Kriging）→ 生成高精度DEM，用于水文分析、滑坡监测</li>
+    <li><strong>林业应用</strong>：机载LiDAR提取林分高度、郁闭度、生物量；地基LiDAR获取单木三维结构；ICESat-2全球植被高度</li>
+    <li><strong>水文应用</strong>：ICESat卫星激光测高监测内陆湖泊水位变化（青藏高原80%以上湖泊水位上升）</li>
+    <li><strong>水利工程</strong>：机载LiDAR精密测绘堤围三维形态，自动提取塌陷部位，评估防洪性能</li>
+    <li><strong>自动驾驶</strong>：车载LiDAR实时获取三维点云，用于障碍物检测和路径规划</li>
+  </div>
+</section>
+
+<!-- ===================== CH10 ===================== -->
+<section class="chapter" id="ch10">
+  <div class="chapter-header">
+    <span class="chapter-num">CH 10</span>
+    <div>
+      <div class="chapter-title">高光谱遥感</div>
+      <div class="chapter-sub">基本概念 / 图谱合一 / 数据处理 / Hughes现象 / 混合像元</div>
+    </div>
+  </div>
+
+  <div class="section-label">核心名词解释</div>
+  <div class="term-grid">
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🌈</span>高光谱遥感</div>
+      <div class="term-body">将<strong>成像技术和光谱技术</strong>相结合的多维光谱信息获取技术。通过极窄波段（纳米级间隔）在可见光到热红外范围内同时获取数百个波段的影像，在每个像元上形成一条<em>近连续光谱曲线</em>。核心特点：<strong>"图谱合一"</strong>——每个像元既有空间位置，又有完整光谱。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📦</span>高光谱数据立方体</div>
+      <div class="term-body">高光谱图像的数据结构：两个空间维度（x,y）+ 一个光谱维度（λ），构成三维数据立方体。高光谱相机（成像光谱仪）每次成像产生一个"图像数据立方体"，典型参数：数百波段、光谱分辨率5–10nm、光谱范围400–2500nm。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📉</span>Hughes现象（维数灾难）</div>
+      <div class="term-body">在给定训练样本数量和分类器的条件下，分类精度随数据维数（波段数）增加呈现<em>先升后降</em>的现象。高光谱数据虽然波段数量多，信息丰富，但波段间光谱冗余严重，若不进行<strong>降维处理</strong>，反而会导致分类精度下降。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔍</span>高光谱降维方法</div>
+      <div class="term-body">① <strong>特征选择</strong>：从原有波段中筛选信息量最大的特征波段（减少波段数，保留物理意义）。② <strong>特征提取</strong>：将高维数据变换到低维特征空间（如PCA主成分分析、MNF最小噪声分离），去除波段间相关性。③ <strong>物理指数计算</strong>：利用特定波段组合生成具有物理意义的指数（如NDVI、红边斜率）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🧩</span>混合像元问题</div>
+      <div class="term-body">高光谱空间分辨率通常较低，一个像元内可能包含多种地物。混合像元的光谱是多种地物<strong>光谱的混合</strong>，不能简单归为某一类。解决方法：<em>光谱解混</em>（Spectral Unmixing）——将每个像元分解为多种端元（纯物质光谱）的加权组合，估算各端元的丰度（比例）。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">📏</span>光谱匹配</div>
+      <div class="term-body">将像元观测光谱与<strong>参考光谱库</strong>（含数百种标准物质光谱）进行比较，识别地物类型。方法：光谱角度映射（Spectral Angle Mapper, SAM）、二值编码（Binary Encoding）、光谱特征拟合（Spectral Feature Fitting）等。高光谱的"指纹识别"能力。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🛰️</span>高光谱卫星发展</div>
+      <div class="term-body">EO-1 Hyperion（2000年，NASA，220波段，10nm分辨率，30m空间）→ 高分五号（2018年，中国，330波段，5nm，30m）→ 珠海一号（2019年，256波段，2.5nm，10m，幅宽150km，为商业化高光谱卫星）。中国高光谱卫星技术跻身世界前列。</div>
+    </div>
+    <div class="term-card">
+      <div class="term-name"><span class="icon">🔬</span>成像光谱仪类型</div>
+      <div class="term-body">按工作原理：<strong>推扫式</strong>（Pushbroom）：线性阵列探测器，每次成像一行像元，随平台飞行推扫，稳定性好（Hyperion采用）。<strong>扫帚式</strong>（Whiskbroom）：单点探测器+扫描镜摆动，动态范围大（AVIRIS采用）。</div>
+    </div>
+  </div>
+
+  <div class="section-label">高光谱遥感 vs 多光谱遥感</div>
+  <table class="cmp-table">
+    <tr><th>对比维度</th><th>多光谱遥感（如Landsat TM）</th><th>高光谱遥感（如Hyperion）</th></tr>
+    <tr><td>波段数</td><td>几个到十几个（7–12个）</td><td>数百个（100–400个）</td></tr>
+    <tr><td>光谱分辨率</td><td>宽（100–200nm）</td><td>窄（2–15nm，纳米级）</td></tr>
+    <tr><td>光谱曲线</td><td>不连续，离散采样</td><td>近连续光谱曲线（"指纹级"）</td></tr>
+    <tr><td>主要优势</td><td>宽幅覆盖，时间分辨率高，数据量小</td><td>光谱精细识别，可区分相似地物（矿物种类、作物病害）</td></tr>
+    <tr><td>主要挑战</td><td>难以区分光谱相似地物</td><td>数据量大、Hughes现象、混合像元</td></tr>
+    <tr><td>典型应用</td><td>大范围土地利用分类、植被监测</td><td>矿物识别、大气成分探测、植物病害精准诊断</td></tr>
+  </table>
+
+  <div class="section-label">论述题：高光谱遥感的优势与挑战</div>
+  <div class="qa-list">
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">论述</span>高光谱遥感相比多光谱遥感有哪些优势？面临哪些主要挑战？</div>
+      <div class="qa-a">
+        <strong>优势：</strong>①"图谱合一"，每个像元具有近连续光谱曲线，可实现"光谱指纹"识别，区分多光谱无法辨别的相似地物（如矿物种类、作物病害类型）；②可识别细微光谱特征（吸收峰），用于大气成分监测（CO₂、CH₄等痕量气体）；③高分五号可探测雾霾、温室气体分布；④可通过光谱库匹配实现地物自动识别，无需大量训练样本。<br><br>
+        <strong>主要挑战：</strong>①<em>Hughes现象</em>（维数灾难）：波段数增加但训练样本有限，分类精度反而下降，需降维处理；②<em>混合像元</em>：空间分辨率通常较低，像元内存在多种地物，需光谱解混技术；③<em>数据量巨大</em>：数百波段的影像数据压缩、传输和处理是重要工程挑战；④<em>大气校正复杂</em>：高光谱对大气吸收极为敏感，精确大气校正是定量反演的前提。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMPREHENSIVE ===================== -->
+<section class="chapter" id="综合">
+  <div class="chapter-header">
+    <span class="chapter-num">综合</span>
+    <div>
+      <div class="chapter-title">综合论述题要点汇总</div>
+      <div class="chapter-sub">跨章节对比 · 高频考点 · 重要概念速查</div>
+    </div>
+  </div>
+
+  <div class="section-label">高频综合论述题</div>
+  <div class="qa-list">
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">论述</span>论述不同遥感技术（光学、热红外、微波、LiDAR、高光谱）的优缺点及适用场景？</div>
+      <div class="qa-a">
+        <strong>光学遥感（可见光+近红外）</strong>：被动接收太阳反射辐射，空间分辨率高（可达亚米），可获取地物颜色/纹理/光谱信息，适合土地覆盖分类、植被监测；缺点：白天工作，受云雾限制。<br><br>
+        <strong>热红外遥感</strong>：探测地物热辐射，可全天时工作（夜间可见）；适合地表温度、热岛、火灾、热泄漏监测；缺点：空间分辨率相对较低。<br><br>
+        <strong>微波遥感（SAR/被动）</strong>：主动SAR全天候穿云透雾，对水分、粗糙度敏感；适合洪涝监测（SAR透过云层）、海冰、地形测绘（SRTM）、地表形变（InSAR）；缺点：图像解译难度大，斑点噪声明显。<br><br>
+        <strong>激光雷达（LiDAR）</strong>：主动精确三维测量，可穿透植被获取地面高程；适合高精度DEM、森林垂直结构、建筑三维建模；缺点：覆盖范围有限，费用高。<br><br>
+        <strong>高光谱遥感</strong>：近连续光谱指纹识别，适合矿物识别、大气痕量气体探测、作物病害精准诊断；缺点：数据量大、维数灾难、混合像元问题。<br><br>
+        <strong>选择原则</strong>：根据探测目标特性（需要光谱信息还是几何信息还是温度信息）和工作条件（云雾是否影响、是否需要夜间工作）综合选择，大型项目常多源融合。
+      </div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">论述</span>什么是大气校正？为什么遥感图像分析前必须进行大气校正？</div>
+      <div class="qa-a">
+        <strong>大气校正定义</strong>：消除大气对遥感信号的干扰，将传感器获取的表观辐射亮度/反射率还原为地表真实反射率的图像处理过程。<br><br>
+        <strong>必要性</strong>：大气对遥感信号产生四种影响：①对入射光的<em>消光</em>（吸收+散射减弱能量）；②产生<em>路径辐射</em>（大气散射光叠加在目标信号上，形成"灰雾"）；③产生<em>天空漫射光</em>；④<em>多次反射</em>效应。若不校正，蓝、绿波段的瑞利散射会使图像整体偏亮失真，直接影响地物识别精度和定量反演准确性（如NDVI计算偏差）。<br><br>
+        <strong>主要方法</strong>：①<em>暗像元法（DOS）</em>：找到图像中本应为零值的暗像元（山体阴影/深海水体），其非零亮度值即为大气干扰校正值；②<em>FLAASH模型</em>：基于辐射传输方程的严格大气校正（需大气参数，精度高）；③<em>直方图匹配法</em>；④<em>回归分析法</em>。
+      </div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">论述</span>卫星遥感图像的"四大分辨率"是什么？它们之间有何相互制约关系？</div>
+      <div class="qa-a">
+        <strong>空间分辨率</strong>：图像能分辨的最小地面目标尺寸（像元对应地面距离）。<br>
+        <strong>时间分辨率</strong>：同一地区重复覆盖的时间间隔（重访周期）。<br>
+        <strong>光谱分辨率</strong>：传感器能分辨的最小波长间隔（波段数和宽度）。<br>
+        <strong>辐射分辨率</strong>：图像能分辨的最小辐射强度差（量化位数）。<br><br>
+        <strong>相互制约关系</strong>：①<em>空间与时间的权衡</em>：空间分辨率高的卫星幅宽窄（重访周期长），时间分辨率低（如GF-1 2m，4天）；空间分辨率低的卫星幅宽宽（如MODIS 1km，每天覆盖）；②<em>空间与光谱的权衡</em>：高光谱传感器收集更多波段，每波段进光量少，需降低空间分辨率来维持信噪比；③<em>各指标与辐射分辨率的联系</em>：像元越小、波段越窄，单个像元接收的能量越少，信噪比越低，辐射分辨率受限。卫星设计是在这四个参数之间寻求针对特定应用的最优平衡。
+      </div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">论述</span>什么是InSAR技术？有哪些主要应用？</div>
+      <div class="qa-a">
+        <strong>InSAR（合成孔径雷达干涉测量）</strong>：利用两次（或多次）不同时间/轨道获取的SAR图像的<em>相位差</em>，提取地面高程或形变量的技术。原理：同一目标在不同位置的两个SAR观测之间，相位差与目标到雷达的距离差有关，可精确测量厘米级甚至毫米级的地表位移。<br><br>
+        <strong>两种模式</strong>：①<em>单轨InSAR</em>（双天线同时飞行，如SRTM）：直接生成DEM；②<em>重复轨道D-InSAR（差分干涉测量）</em>：比较两次飞行的相位变化，探测地表形变（利用数字高程模型去除地形相位）。<br><br>
+        <strong>主要应用</strong>：①<em>地震形变监测</em>（震前慢速蠕滑、同震形变场、震后弛豫）；②<em>火山活动监测</em>；③<em>城市地面沉降</em>监测；④<em>滑坡/泥石流</em>形变预警；⑤<em>冰川流速</em>测量；⑥<em>矿区开采沉陷</em>。
+      </div>
+    </div>
+    <div class="qa-item">
+      <div class="qa-q"><span class="badge">论述</span>遥感影像分类精度如何评估？Kappa系数的意义是什么？</div>
+      <div class="qa-a">
+        <strong>精度评估方法</strong>：①收集<em>验证样本</em>（独立于训练样本，通过野外调查或高分辨率影像目视解译获取）；②构建<em>混淆矩阵（误差矩阵）</em>：行为参考真实类别，列为分类类别，对角线为分类正确的样本数；③从混淆矩阵提取精度指标。<br><br>
+        <strong>主要精度指标</strong>：<em>总体精度（Overall Accuracy）</em>= 正确分类的像元总数 / 验证样本总数；<em>生产者精度（Producer's Accuracy）</em>= 某类正确分类数 / 该类真实样本总数（对应漏分误差）；<em>用户精度（User's Accuracy）</em>= 某类正确分类数 / 分类为该类的总像元数（对应错分误差）。<br><br>
+        <strong>Kappa系数（κ）</strong>：排除<em>随机一致性</em>（纯粹靠猜测也能达到的精度）后的精度评估指标。κ = (总体精度 - 随机期望精度) / (1 - 随机期望精度)。κ&gt;0.8为高精度，0.6–0.8为中等精度，&lt;0.4为低精度。比总体精度更严格、更全面，是分类精度评估的标准指标。
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">重要公式速查</div>
+  <table class="cmp-table">
+    <tr><th>公式名称</th><th>表达式</th><th>含义</th></tr>
+    <tr><td>电磁波关系</td><td>c = fλ；E = hf</td><td>光速=频率×波长；能量=普朗克常数×频率</td></tr>
+    <tr><td>斯忒藩-玻尔兹曼定律</td><td>M = σT⁴</td><td>黑体单位面积总辐射与温度四次方成正比</td></tr>
+    <tr><td>维恩位移定律</td><td>λ_max = 2898/T (μm·K)</td><td>峰值波长与温度成反比（温度越高，峰值越短）</td></tr>
+    <tr><td>瑞利散射强度</td><td>I ∝ λ⁻⁴</td><td>散射强度与波长四次方成反比</td></tr>
+    <tr><td>NDVI</td><td>NDVI = (NIR-R)/(NIR+R)</td><td>归一化植被指数，范围-1~1，植被区通常&gt;0.2</td></tr>
+    <tr><td>LiDAR测距</td><td>R = cΔt/2</td><td>距离 = 光速 × 往返时间 / 2</td></tr>
+    <tr><td>太阳常数</td><td>I⊙ = 1.35×10³ W/m²</td><td>大气层顶接收的太阳总辐射能量密度</td></tr>
+    <tr><td>能量守恒</td><td>ρ + α + τ = 1</td><td>反射率+吸收率+透射率=1（不透明体τ=0，ε=α=1-ρ）</td></tr>
+  </table>
+
+  <div class="section-label">常考名词快速区分</div>
+  <div class="callout callout-green">
+    <strong>DSM vs DTM vs DEM：</strong>DSM（数字表面模型）包含所有地表物体最高点；DTM（数字地形模型）=裸地，滤除建筑植被；DEM（数字高程模型）最广义，通常≈DTM。<br>
+    <strong>辐照度 vs 辐射亮度：</strong>辐照度=被辐射物体单位面积获得的辐射通量；辐射亮度=辐射源在特定方向上单位投影面积、单位立体角的辐射通量（含方向性）。<br>
+    <strong>太阳同步轨道 vs 地球同步轨道：</strong>前者轨道面与太阳方向固定（倾角约98°，高度600–800km）；后者卫星相对地面静止（倾角0°，高度约36000km）。<br>
+    <strong>真彩色 vs 假彩色：</strong>分解合成波段一一对应→真彩色（看起来"自然"）；波段对应关系改变→假彩色（植被呈红色的标准假彩色最常用）。<br>
+    <strong>K-means vs ISODATA：</strong>K-means类数固定；ISODATA在K-means基础上增加类别<em>合并</em>（类间距太近）和<em>分裂</em>（方差过大）功能，更灵活。
+  </div>
+</section>
+
+</div><!-- /.container -->
+
+<footer class="site-footer">
+  遥感概论 · 期末复习资料 · 2026 | 涵盖 Ch1–Ch10 全部核心概念<br>
+  建议：名词解释抓<strong>定义+核心特征+举例</strong>；论述题注意<strong>对比维度完整</strong>，结合具体应用场景展开。
+</footer>
+
+</body>
+</html>
